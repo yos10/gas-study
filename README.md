@@ -1,6 +1,6 @@
 # gas-study
 
-N 予備校【2022 年度】プログラミング入門 Web アプリ 実践編  
+N 予備校【2022 年度】プログラミング入門 Web アプリ 付録 実践編  
 11. Google Apps Script
 
 - root だと clasp clone した時に開けないファイル(.clasp.json)があったので Dockerfile に USER を指定。
@@ -21,7 +21,7 @@ N 予備校【2022 年度】プログラミング入門 Web アプリ 実践編
 1. `docker cp CONTAINERID:/home/node/.clasprc.json ~/.clasprc.json` で .clasprc.json をローカルにコピー
 1. 作業フォルダに移動し .clasprc.json をカレントディレクトリにコピー `cp ~/.clasprc.json .`
 1. Dockerfile の 8 行目のコメントを解除してコンテナをビルドし直す `docker compose up -d --build`
-1. 次にコンテナを再起動したときや、他のコンテナで作業するときは手順の 2,3,4,5
+1. 次にコンテナを再起動したときは clasp login しなくてよくなる。他のコンテナで作業するときは手順の 2,3,4,5
 
 参考にしたページ  
 https://github.com/google/clasp/issues/296#issuecomment-417020145

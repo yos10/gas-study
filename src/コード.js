@@ -1,4 +1,4 @@
-function sendEmails() {
+function sendEmail() {
   const sheet = SpreadsheetApp.getActiveSheet();
   const dataRange = sheet.getRange('A2:D2');
   const values = dataRange.getValues();
@@ -18,12 +18,14 @@ function sendEmails() {
   MailApp.sendEmail(emailAddress, subject, message, { cc: myEmail });
 }
 
-function sendMultiemails() {
+function sendMultiEmails() {
   const sheet = SpreadsheetApp.getActiveSheet();
   const startRow = 2; // データの行数のはじまり
   const numRows = 2; // 送付先データの数
   const dataRange = sheet.getRange(startRow, 1, numRows, 4);
   const values = dataRange.getValues();
+
+  const myEmail = Session.getActiveUser().getEmail();
 
   for (const i in values) {
     const userName = values[i][0];
@@ -36,8 +38,6 @@ function sendMultiemails() {
     N予備校です。
     
     コンテストの結果は見事 ${award} に選ばれました。`;
-
-    const myEmail = Session.getActiveUser().getEmail();
 
     MailApp.sendEmail(emailAddress, subject, message, { cc: myEmail });
   }

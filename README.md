@@ -1,7 +1,10 @@
-# gas-study
+# N 予備校【2022 年度】プログラミング入門 Web アプリ 付録 実践編 11. Google Apps Script
 
-N 予備校【2022 年度】プログラミング入門 Web アプリ 付録 実践編  
-11. Google Apps Script
+## Docker で Clasp を使えるようにする
+
+https://github.com/google/clasp
+
+Clasp を使うとローカルで Apps Script の開発、コードを Git で管理できるようになるのでメモ。
 
 - root だと clasp clone した時に開けないファイル(.clasp.json)があったので Dockerfile に USER を指定。
 
@@ -14,13 +17,28 @@ N 予備校【2022 年度】プログラミング入門 Web アプリ 付録 実
 
   このファイルはプロジェクトフォルダ直下に存在しないと clasp push ができないので、手動で移動した。
 
+  ```
+  ~/workspace/gas-study (main)
+  $ tree -a -I '.git'
+  .
+  ├── .clasp.json
+  ├── .clasprc.json
+  ├── .gitignore
+  ├── Dockerfile
+  ├── README.md
+  ├── docker-compose.yml
+  └── src
+        ├── appsscript.json
+        └── コード.js
+  ```
+
 ## 毎回 clasp login するのを省略
 
 1. 一度コンテナ内で `clasp login --no-localhost` でログインして `~/.clasprc.json` ファイルをつくる
 1. 新しく端末を開き `docker ps` で CONTAINER ID を確認
 1. `docker cp CONTAINERID:/home/node/.clasprc.json ~/.clasprc.json` で .clasprc.json をローカルにコピー
 1. 作業フォルダに移動し .clasprc.json をカレントディレクトリにコピー `cp ~/.clasprc.json .`
-1. Dockerfile の 8 行目のコメントを解除してコンテナをビルドし直す `docker compose up -d --build`
+1. Dockerfile の 8 行目のコメントを解除してイメージをビルドし直す `docker compose up -d --build`
 1. 次にコンテナを再起動したときは clasp login しなくてよくなる。他のコンテナで作業するときは手順の 4,5
 
 参考にしたページ  

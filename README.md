@@ -6,7 +6,7 @@ https://github.com/google/clasp
 
 Clasp を使うとローカルで Apps Script の開発、コードを Git で管理できるようになるのでメモ。
 
-- root だと clasp clone した時に開けないファイル(.clasp.json)があったので Dockerfile に USER を指定。
+- root だと clasp clone した時に開けないファイル(.clasp.json)があった(docker compose up で失敗する)ので Dockerfile に USER を指定。
 
 - clasp clone した時になぜか src 以下に .clasp.json がつくられた。
 
@@ -28,8 +28,8 @@ Clasp を使うとローカルで Apps Script の開発、コードを Git で�
   ├── README.md
   ├── docker-compose.yml
   └── src
-        ├── appsscript.json
-        └── コード.js
+      ├── appsscript.json
+      └── コード.js
   ```
 
 ## 毎回 clasp login するのを省略

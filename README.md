@@ -1,10 +1,37 @@
-# N 予備校【2022 年度】プログラミング入門 Web アプリ 付録 実践編 11. Google Apps Script
-
-## Docker で Clasp を使えるようにする
+# Docker で Clasp を使えるようにする
 
 https://github.com/google/clasp
 
 Clasp を使うとローカルで Apps Script の開発、コードを Git で管理できるようになるのでメモ。
+
+## 使い方
+
+### clasp login
+
+`clasp login --no-localhost`
+
+表示された URL をブラウザで開いてログイン。  
+許可して表示されたコードを端末に入力。
+
+### clasp clone
+
+`git clone` みたいなかんじ。最初に 1 回だけ実行すれば OK
+
+1. `mkdir src`
+1. GAS のスクリプトエディタの左側にある歯車アイコン(プロジェクトの設定)をクリックして、スクリプト ID をコピー
+1. `clasp clone "スクリプトID" --rootDir src`
+
+### clasp pull
+
+コードをローカルに持ってくる
+
+### clasp push
+
+`git push -f` みたいなかんじ
+
+`clasp push -w` ウォッチモード(保存したら自動で push)
+
+## 備考
 
 - root だと clasp clone した時に開けないファイル(.clasp.json)があった(docker compose up で失敗する)ので Dockerfile に USER を指定。
 
@@ -35,25 +62,10 @@ Clasp を使うとローカルで Apps Script の開発、コードを Git で�
 ## 毎回 clasp login するのを省略
 
 1. 一度コンテナ内で `clasp login --no-localhost` でログインして `~/.clasprc.json` ファイルをつくる
-1. 新しく端末を開き `docker ps` で CONTAINER ID を確認
-1. `docker cp CONTAINERID:/home/node/.clasprc.json ~/.clasprc.json` で .clasprc.json をローカルにコピー
-1. 作業フォルダに移動し .clasprc.json をカレントディレクトリにコピー `cp ~/.clasprc.json .`
+1. `exit`
+1. `docker compose cp app:/home/node/.clasprc.json ${HOME}/.clasprc.json` で .clasprc.json をローカルのホームディレクトリにコピー
 1. Dockerfile の 8 行目のコメントを解除してイメージをビルドし直す `docker compose up -d --build`
-1. 次にコンテナを再起動したときは clasp login しなくてよくなる。他のコンテナで作業するときは手順の 4,5
+1. 次にコンテナを再起動したときは clasp login しなくてよくなる。他のコンテナで作業するときは手順の 4
 
 参考にしたページ  
 https://github.com/google/clasp/issues/296#issuecomment-417020145
-
-## clasp clone
-
-1. `mkdir src`
-1. GAS のスクリプトエディタの左側にある歯車アイコン(プロジェクトの設定)をクリックして、スクリプト ID をコピー
-1. `clasp clone "スクリプトID" --rootDir src`
-
-## clasp pull
-
-`clasp pull` コードをローカルに持ってくる
-
-## clasp push
-
-`clasp push -w` ウォッチモード(保存したら自動で push)
